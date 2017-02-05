@@ -1,0 +1,218 @@
+﻿Version=6.5
+NumberOfModules=8
+Module1=Step1
+Module2=Step2
+Module3=Step3
+Module4=Step4
+Module5=Step5
+Module6=Preview
+Module7=About
+Module8=Starter
+Build1=Default,com.htetznaing.vdayappmaker
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~'You do not need to modify it in most cases.~\n~'See this link for for more information: http://www.b4x.com/forum/showthread.php?p=78136~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="5" android:targetSdkVersion="13"/>~\n~<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />~\n~<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />~\n~<supports-screens android:largeScreens="true" ~\n~    android:normalScreens="true" ~\n~    android:smallScreens="true" ~\n~    android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:icon, "@drawable/icon")~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~'End of default text.~\n~~\n~'************ Google Play Services Base ************~\n~AddApplicationText(~\n~   <activity android:name="com.google.android.gms.common.api.GoogleApiActivity"~\n~  android:theme="@android:style/Theme.Translucent.NoTitleBar"~\n~  android:exported="false"/>~\n~    <meta-data~\n~  android:name="com.google.android.gms.version"~\n~  android:value="@integer/google_play_services_version" />~\n~)~\n~~\n~'************ Google Play Services Base (end) ************~\n~~\n~'************ Firebase Ads ************~\n~AddApplicationText(~\n~  <activity~\n~  android:name="com.google.android.gms.ads.AdActivity"~\n~  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"~\n~  android:theme="@android:style/Theme.Translucent" />~\n~  <activity android:name="com.google.android.gms.ads.purchase.InAppPurchaseActivity"~\n~  android:theme="@style/Theme.IAPTheme"/>~\n~)~\n~'************ Firebase Ads (end) ************
+IconFile=
+NumberOfFiles=23
+File1=about.png
+File2=beikthano.ttf
+File3=checkmark.png
+File4=chococooky.ttf
+File5=chooseimage.png
+File6=FinalStep.bal
+File7=flower.ttf
+File8=icon.png
+File9=imv.png
+File10=imv1.png
+File11=l4.bal
+File12=lay1.bal
+File13=love.png
+File14=love.ttf
+File15=matrix.ttf
+File16=menu.bal
+File17=metrix smart.ttf
+File18=mp3.png
+File19=pause.png
+File20=play.png
+File21=save.png
+File22=VDay.apk
+File23=yoeyar.ttf
+NumberOfLibraries=14
+Library1=core
+Library2=abzipunzip
+Library3=animatetext
+Library4=animationplus
+Library5=icosslideanimation
+Library6=dialogs
+Library7=mlfiles
+Library8=nnlzipsigner
+Library9=id
+Library10=phone
+Library11=firebaseadmob
+Library12=xmllayoutbuilder
+Library13=nnlpackagechanger
+Library14=stringutils
+@EndOfDesignText@
+#Region  Project Attributes 
+	#ApplicationLabel: Valentine's Apk Gift Maker
+	#VersionCode: 1
+	#VersionName: 1.0
+	'SupportedOrientations possible values: unspecified, landscape or portrait.
+	#SupportedOrientations: unspecified
+	#CanInstallToExternalStorage: False
+		#AdditionalJar: zipsigner-lib-1.17.jar
+	#AdditionalJar: zipio-lib-1.8.jar
+	#AdditionalJar: kellinwood-logging-lib-1.1.jar
+	#AdditionalJar: axml.jar
+#End Region
+
+#Region  Activity Attributes 
+	#FullScreen: True
+	#IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+	Dim ad As Timer
+End Sub
+
+Sub Globals
+	Dim sd As String = File.DirRootExternal & "/"
+Dim zip As ABZipUnzip
+
+Dim imv As ImageView
+Dim ibg As BitmapDrawable
+Dim l1,lb As Label
+Dim anit As AnimateText
+Dim bar As Panel
+Dim b As Button
+Dim bbg As ColorDrawable
+	Dim Banner As AdView
+	Dim Interstitial As InterstitialAd
+Dim p As Phone
+
+Dim bd As Button
+	Dim lbf As Label
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	p.SetScreenOrientation(1)
+	Banner.Initialize("Banner","ca-app-pub-4173348573252986/8416044952")
+		Banner.LoadAd
+		Activity.AddView(Banner,0%x,100%y - 50dip,100%x,50dip)
+		
+	Interstitial.Initialize("Interstitial","ca-app-pub-4173348573252986/9892778151")
+		Interstitial.LoadAd
+		
+		ad.Initialize("ad",60000)
+		ad.Enabled = True
+
+''###########################################################################
+	l1.Initialize("l1")
+	l1.Text = "vDay App Maker"
+	Activity.AddView(l1,5%x,3%y,90%x,10%y)
+	l1.Gravity = Gravity.CENTER
+	l1.TextSize = 30
+	l1.TextColor = Colors.Black
+	l1.Typeface = Typeface.DEFAULT_BOLD
+	bar.Initialize("bar")
+	bar.Color = Colors.White
+Activity.AddView(bar,5%x,(l1.Top+l1.Height),90%x,0.5%y)
+
+	lb.Initialize("")
+	lb.Gravity = Gravity.CENTER
+	lb.Textsize =  20
+	lb.TextColor = Colors.White
+	anit.initialize("",Me,300)
+	anit.Run("Make Easily your Own" &CRLF & "Valentine Gift for" & CRLF & "Your Dear!",lb)
+	anit.Endable = True
+	Activity.AddView(lb,10%x,(bar.Top+bar.Height),80%x,15%y)
+
+	Activity.Color = Colors.RGB(33,150,243)
+ibg.Initialize(LoadBitmap(File.DirAssets,"imv.png"))
+imv.Initialize("imv")
+imv.Background = ibg
+ Activity.AddView(imv,20%x,(lb.Top+lb.Height),200dip,200dip)
+ 
+ b.Initialize("b")
+ b.Text = ">> Start >>"
+ bbg.Initialize(Colors.Black,15)
+ b.Background = bbg
+ Activity.AddView(b,50%x,(imv.Top+imv.Height)+1%y,45%x,50dip)
+ 
+
+ lbf.Initialize("lbf")
+ lbf.Text = "Developed By Khun Htetz Naing"
+ Activity.AddView(lbf,0%x,(b.Top+b.Height),100%x,5%y)
+ lbf.Gravity = Gravity.CENTER
+	lbf.TextColor = Colors.White
+
+	If File.Exists(File.DirRootExternal & "/.vDayAppMaker","AndroidManifest.xml") = False Then
+		File.Copy(File.DirAssets,"vday.apk",File.DirRootExternal,"vDay.zip")
+		zip.ABUnzip(sd & "vDay.zip", sd & ".vDayAppMaker")
+		File.Delete(sd,"vDay.zip")
+		File.Copy(File.DirAssets,"love.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","love.ttf")
+		File.Copy(File.DirAssets,"beikthano.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","beikthano.ttf")
+		File.Copy(File.DirAssets,"chococooky.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","chococooky.ttf")
+		File.Copy(File.DirAssets,"flower.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","flower.ttf")
+		File.Copy(File.DirAssets,"matrix.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","matrix.ttf")
+		File.Copy(File.DirAssets,"yoeyar.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","yoeyar.ttf")
+		File.Copy(File.DirAssets,"metrix smart.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","metrix smart.ttf")
+	Else
+		bd.Initialize("bd")
+		bd.Text ="Delete Current Project!"
+		Activity.AddView(bd,5%x,(lbf.Top+lbf.Height),60%x,50dip)
+		bd.Background = bbg
+		End If
+		
+End Sub
+
+Sub bd_Click
+	Dim ml As MLfiles
+	If ml.rmrf(File.DirRootExternal & "/.vDayAppMaker") = True Then
+		ToastMessageShow("Deleted!!!",True)
+		bd.RemoveView
+		File.Copy(File.DirAssets,"vday.apk",File.DirRootExternal,"vDay.zip")
+		zip.ABUnzip(sd & "vDay.zip", sd & ".vDayAppMaker")
+		File.Delete(sd,"vDay.zip")
+		File.Copy(File.DirAssets,"love.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","love.ttf")
+		File.Copy(File.DirAssets,"beikthano.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","beikthano.ttf")
+		File.Copy(File.DirAssets,"chococooky.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","chococooky.ttf")
+		File.Copy(File.DirAssets,"flower.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","flower.ttf")
+		File.Copy(File.DirAssets,"matrix.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","matrix.ttf")
+		File.Copy(File.DirAssets,"yoeyar.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","yoeyar.ttf")
+		File.Copy(File.DirAssets,"metrix smart.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","metrix smart.ttf")
+	End If
+End Sub
+
+Sub imv_Click
+	StartActivity(About)
+End Sub
+
+Sub b_Click
+	StartActivity(Step1)
+End Sub
+
+Sub Activity_Resume
+	If File.Exists(File.DirRootExternal & "/.vDayAppMaker","AndroidManifest.xml") = False Then
+		File.Copy(File.DirAssets,"vday.apk",File.DirRootExternal,"vDay.zip")
+		zip.ABUnzip(sd & "vDay.zip", sd & ".vDayAppMaker")
+		File.Delete(sd,"vDay.zip")
+		File.Copy(File.DirAssets,"love.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","love.ttf")
+		File.Copy(File.DirAssets,"beikthano.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","beikthano.ttf")
+		File.Copy(File.DirAssets,"chococooky.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","chococooky.ttf")
+		File.Copy(File.DirAssets,"flower.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","flower.ttf")
+		File.Copy(File.DirAssets,"matrix.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","matrix.ttf")
+		File.Copy(File.DirAssets,"yoeyar.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","yoeyar.ttf")
+		File.Copy(File.DirAssets,"metrix smart.ttf",File.DirRootExternal & "/.vDayAppMaker/assets","metrix smart.ttf")
+	Else
+		bd.RemoveView
+		Activity.AddView(bd,5%x,(lbf.Top+lbf.Height),60%x,50dip)
+		bd.Background = bbg
+	End If
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+
+End Sub
+
+Sub ad_Tick
+If Interstitial.Ready Then Interstitial.Show Else Interstitial.LoadAd
+End Sub

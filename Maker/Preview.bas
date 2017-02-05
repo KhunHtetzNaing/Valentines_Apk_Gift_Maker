@@ -1,0 +1,1331 @@
+﻿Type=Activity
+Version=6.5
+ModulesStructureVersion=1
+B4A=true
+@EndOfDesignText@
+#Region  Activity Attributes 
+	#FullScreen: True
+	#IncludeTitle: False
+#End Region
+Sub Process_Globals
+	'These global variables will be declared once when the application starts.
+	'These variables can be accessed from all modules.
+	Dim t As Timer
+	Dim it1,it2,it3,it4,it5,it6,it7,it8,it9,it10,it11,it12,it13,it14,it15 As Timer
+	Dim b1t, b2t, b3t, b4t, b5t, b6t, b7t, b8t, b9t, b10t, b11t, b12t, b13t, b14t,b15t As Timer
+	Dim timer1 As Timer
+End Sub
+
+Sub Globals
+	Dim ad As Timer
+	Dim barPosition As SeekBar
+	Dim lblPosition As Label
+	Dim anitext As AnimateText
+	Dim Img() As String
+	Dim Counter As Int
+	Dim iv1,iv2 As ImageView
+	Dim lb As Label
+
+	Dim i1,i2,i3,i4,i5,i6,i7,i8,i9,i10,i11,i12,i13,i14,i15 As ImageView
+	Dim i1bg,i2bg,i3bg,i4bg,i5bg,i6bg,i7bg,i8bg,i9bg,i10bg,i11bg,i12bg,i13bg,i14bg,i15bg As BitmapDrawable
+	Dim i1ani, i2ani, i3ani, i4ani, i5ani, i6ani, i7ani, i8ani, i9ani, i10ani, i11ani, i12ani, i13ani, i14ani, i15ani As ICOSSlideAnimation
+	Dim b1, b2, b3, b4, b5, b6, b7, b8, b9, b10, b11, b12, b13, b14, b15 As ImageView
+	Dim b1bg, b2bg, b3bg, b4bg, b5bg, b6bg, b7bg, b8bg, b9bg, b10bg, b11bg, b12bg, b13bg, b14bg, b15bg As BitmapDrawable
+	Dim b1ani, b2ani, b3ani, b4ani, b5ani, b6ani, b7ani, b8ani, b9ani, b10ani, b11ani, b12ani, b13ani, b14ani, b15ani As ICOSSlideAnimation
+	Dim b As Button
+	
+
+	Dim time,color As String
+	Dim love,beiktano,Chococooky,flower,Matrix,MatrixSmart,yoeyar As Typeface
+	Dim mp As MediaPlayer
+	Dim abg As BitmapDrawable
+	Dim p As Phone
+	
+	Dim Banner As AdView
+	Dim Interstitial As InterstitialAd
+	Dim bb As Button
+	Dim bbg As ColorDrawable
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+	bb.Initialize("bb")
+	bbg.Initialize(Colors.Black,15)
+	bb.Background = bbg
+	bb.Text = "Build My App"
+	
+	
+	Banner.Initialize("Banner","ca-app-pub-4173348573252986/8416044952")
+	Banner.LoadAd
+	Activity.AddView(Banner,0%x,100%y - 50dip,100%x,50dip)
+		
+	Interstitial.Initialize("Interstitial","ca-app-pub-4173348573252986/9892778151")
+	Interstitial.LoadAd
+	
+	ad.Initialize("ad",300000)
+	ad.Enabled = True
+	
+	p.SetScreenOrientation(1)
+	abg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","bg.jpg"))
+	abg.Gravity = Gravity.FILL
+	Activity.Background = abg
+	
+	love = love.LoadFromAssets("love.ttf")
+	beiktano = beiktano.LoadFromAssets("beikthano.ttf")
+	flower = flower.LoadFromAssets("flower.ttf")
+	Matrix = Matrix.LoadFromAssets("matrix.ttf")
+	MatrixSmart = MatrixSmart.LoadFromAssets("metrix smart.ttf")
+	yoeyar = yoeyar.LoadFromAssets("yoeyar.ttf")
+	Chococooky = Chococooky.LoadFromAssets("chococooky.ttf")
+	
+	'	Activity.LoadLayout("lay1")
+
+	iv1.Initialize("iv1")
+	iv1.Bitmap = LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","iv1.png")
+	iv1.Gravity =  Gravity.FILL
+	Activity.AddView(iv1,0%x,0%y,100%x,50dip)
+
+	lb.Initialize("lb")
+	lb.Gravity = Gravity.CENTER
+	lb.Typeface = love
+	'	lb.Text = File.ReadString(File.DirAssets,"bdw.txt")
+	lb.TextColor = Colors.Yellow
+	Activity.AddView(lb,0%x,(iv1.Top+iv1.Height)+1%y,100%x,90dip)
+	anitext.initialize("anitext",Me,300)
+	anitext.Run(File.ReadString(File.DirRootExternal & "/.vDayAppMaker/assets","bdw.txt"),lb)
+	anitext.Endable = True
+
+	Dim bm As Bitmap
+	bm.Initialize(File.DirRootExternal & "/.vDayAppMaker/assets","h1.jpg")
+
+	iv2.Initialize("iv2")
+	iv2.Gravity = Gravity.FILL
+	Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,350dip)
+	
+	
+			
+	time = File.ReadString(File.DirRootExternal & "/.vDayAppMaker/assets","time.txt")
+	t.Initialize("t", time) '2 seconds delay
+	t.Enabled = True
+	
+	Activity.LoadLayout("lay1")
+	'iBackgrounds
+	iGroup
+	bGroup
+	b.Initialize("b")
+	b.SetBackgroundImage(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","love.png"))
+	Activity.AddView(b,100%x - 60dip,100%y - 60dip,50dip,50dip)
+	
+	mp.Initialize
+	If File.Exists(File.DirRootExternal & "/.vDayAppMaker/assets","vday.mp3") = True Then
+		File.Copy(File.DirRootExternal & "/.vDayAppMaker/assets","vday.mp3",File.DirRootExternal,".vday.mp3")
+		mp.Load(File.DirRootExternal,".vday.mp3")
+		timer1.Initialize("timer1",1000)
+		timer1.Enabled = True
+		mp.Play
+		lblPosition.Initialize("lblPosition")
+		Activity.AddView(lblPosition,5%x,(iv2.Top+iv2.Height)+1%y,50%x,30dip)
+		barPosition.Initialize("barPosition")
+		Activity.AddView(barPosition,0%x,(lblPosition.Top+lblPosition.Height),100%x,30dip)
+	End If
+	
+	Activity.AddView(bb,20%x,50%y,60%x,50dip)
+End Sub
+
+Sub bb_Click
+	StartActivity(Step5)
+End Sub
+
+Sub ad_Tick
+	If Interstitial.Ready Then Interstitial.show Else Interstitial.LoadAd
+End Sub
+
+Sub Interstitial_AdClosed
+	Interstitial.LoadAd
+End Sub
+
+Sub lb_Click
+	Dim id_int As Int
+	Dim id As id
+	Dim lis As List
+	lis.Initialize
+	lis.AddAll(Array As String("BeikThaNo","Chococooky","Flower","Matrix","Matrix Smart","YoeYar","Love"))
+	id_int = id.InputList1(lis,"Choose Font Style!")
+	
+	If id_int = 0 Then
+		lb.Typeface = beiktano
+	End If
+	
+	If id_int = 1 Then
+		lb.Typeface = Chococooky
+	End If
+	
+	If id_int = 2 Then
+		lb.Typeface = flower
+	End If
+	
+	If id_int = 3 Then
+		lb.Typeface = Matrix
+	End If
+	
+	If id_int = 4 Then
+		lb.Typeface = MatrixSmart
+	End If
+	
+	If id_int = 5 Then
+		lb.Typeface = yoeyar
+	End If
+	
+	If id_int = 6 Then
+		lb.Typeface = love
+	End If
+	
+End Sub
+
+Sub lb_LongClick
+	Dim cd As ColorDialog
+	Dim i As Int
+	cd.RGB = Colors.DarkGray
+	i = cd.Show("B4A ColorPicker Dialog", "Yes", "No", "",Null)
+	If i = DialogResponse.POSITIVE Then
+		lb.TextColor = cd.RGB
+		Log(cd)
+	End If
+	If i = DialogResponse.NEGATIVE Then
+		lb.TextColor = ""
+	End If
+End Sub
+
+Sub timer1_Tick
+	If mp.IsPlaying Then
+		barPosition.Value = mp.Position / mp.Duration * 100
+		lblPosition.Text = ConvertToTimeFormat(mp.Position) & _
+			" (" & ConvertToTimeFormat(mp.Duration) & ")"
+	End If
+End Sub
+
+Sub ConvertToTimeFormat(ms As Int) As String
+	Dim seconds, minutes As Int
+	seconds = Round(ms / 1000)
+	minutes = Floor(seconds / 60)
+	seconds = seconds Mod 60
+	Return NumberFormat(minutes, 1, 0) & ":" & NumberFormat(seconds, 2, 0) 'ex: 3:05
+End Sub
+
+Sub barPosition_ValueChanged (Value As Int, UserChanged As Boolean)
+	If UserChanged = False Then Return 'the value was changed programmatically
+	mp.Position = Value / 100 * mp.Duration
+	If mp.IsPlaying = False Then 'this can happen when the playback reached the end and the user changes the position
+		mp.Play
+	End If
+	timer1_Tick
+End Sub
+
+Sub b_Click
+	Dim id_int As Int
+	Dim id As id
+	Dim lis As List
+	lis.Initialize
+	lis.AddAll(Array As String("Change Background Color","Change Text Color","Play Music","Stop Music","Restart","Call","Send Message","Change Image Size"))
+	id_int = id.InputList1(lis,"Choose!")
+	
+	'Background Color
+	If id_int = 0 Then
+		Dim cd As ColorDialog
+		Dim i As Int
+		cd.RGB = Colors.DarkGray
+		i = cd.Show("B4A ColorPicker Dialog", "Yes", "No","",Null)
+		If i = DialogResponse.POSITIVE Then
+			Activity.Color = cd.RGB
+		End If
+		If i = DialogResponse.NEGATIVE Then
+			Activity.Color = ""
+		End If
+	End If
+	
+	If id_int = 1 Then
+		Dim cd As ColorDialog
+		Dim i As Int
+		cd.RGB = Colors.DarkGray
+		i = cd.Show("B4A ColorPicker Dialog", "Yes", "No", "",Null)
+		If i = DialogResponse.POSITIVE Then
+			lb.TextColor = cd.RGB
+			Log(cd)
+		End If
+		If i = DialogResponse.NEGATIVE Then
+			lb.TextColor = ""
+		End If
+	End If
+	
+	'Play Music
+	If id_int = 2 Then
+		If mp.IsPlaying = False Then
+			If File.Exists(File.DirRootExternal & "/.vDayAppMaker/assets","vday.mp3") = True Then
+				File.Copy(File.DirRootExternal & "/.vDayAppMaker/assets","vday.mp3",File.DirRootExternal,".vday.mp3")
+				mp.Load(File.DirRootExternal,".vday.mp3")
+				mp.Play
+			Else
+				ToastMessageShow("No added music :( ",True)
+			End If
+		End If
+	End If
+	
+	'Stop Music
+	If id_int = 3 Then
+		If mp.IsPlaying = True Then
+			mp.Stop
+		End If
+	End If
+	
+	'Restart
+	If id_int = 4 Then
+		If mp.IsPlaying = True Then
+			mp.Stop
+		End If
+		Activity.Finish
+		StartActivity(Me)
+	End If
+	
+	'Call
+	If id_int = 5 Then
+		Dim kall As Intent
+		kall.Initialize(kall.ACTION_CALL,"tel:" & File.ReadString(File.DirRootExternal & "/.vDayAppMaker/assets","number.txt"))
+		StartActivity(kall)
+	End If
+
+	'SMS
+	If id_int = 6 Then
+		Dim shareIt As Intent
+		shareIt.Initialize (shareIt.ACTION_SEND,File.ReadString(File.DirRootExternal & "/.vDayAppMaker/assets","number.txt"))
+		shareIt.SetType("text/plain")
+		shareIt.PutExtra ("android.intent.extra.TEXT",File.ReadString(File.DirRootExternal & "/.vDayAppMaker/assets","message.txt"))
+		shareIt.PutExtra ("android.intent.extra.SUBJECT","Get Free!!")
+		shareIt.WrapAsIntentChooser("Choose Send Via..")
+		StartActivity (shareIt)
+	End If
+	
+	If id_int = 7 Then
+		Dim id_int As Int
+		Dim id As id
+		Dim lis As List
+		lis.Initialize
+		lis.AddAll(Array As String("280X x 300Y","280X x 310Y","280X x 320Y","280X x 330Y","280X x 340Y","280X x 360Y","280X x 370Y","280X x 380Y","280X x 390Y","280X x 400Y","Change to Default Size","",	"300X x 300Y","300X x 310Y","300X x 320Y","300X x 330Y","300X x 340Y","300X x 360Y","300X x 370Y","300X x 380Y","300X x 390Y","300X x 400Y"))
+		id_int = id.InputList1(lis,"Choose Image Size!")
+		
+		If id_int = 0 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,300dip)
+		End If
+		
+		If id_int = 1 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,310dip)
+		End If
+		
+		If id_int = 2 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,320dip)
+		End If
+		
+		If id_int = 3 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,330dip)
+		End If
+		
+		If id_int = 4 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,340dip)
+		End If
+		
+		If id_int = 5 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,360dip)
+		End If
+		
+		If id_int = 6 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,370dip)
+		End If
+		
+		If id_int = 7 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,380dip)
+		End If
+		
+		If id_int = 8 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,390dip)
+		End If
+		
+		If id_int = 9 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,400dip)
+		End If
+		
+		If id_int = 10 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,300dip)
+		End If
+		
+		If id_int = 12 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,310dip)
+		End If
+		
+		If id_int = 13 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,320dip)
+		End If
+		
+		If id_int = 14 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,330dip)
+		End If
+		
+		If id_int = 15 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,340dip)
+		End If
+		
+		If id_int = 16 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,350dip)
+		End If
+		
+		If id_int = 17 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,360dip)
+		End If
+		
+		If id_int = 18 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,370dip)
+		End If
+		
+		If id_int = 19 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,380dip)
+		End If
+		
+		If id_int = 20 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,390dip)
+		End If
+		
+		If id_int = 21 Then
+			iv2.RemoveView
+			Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,400dip)
+			Log("this 21")
+		End If
+	End If
+End Sub
+
+Sub iGroup
+	i1bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i1.png"))
+	i2bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i2.png"))
+	i3bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i3.png"))
+	i4bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i4.png"))
+	i5bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i5.png"))
+	i6bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i6.png"))
+	i7bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i7.png"))
+	i8bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i8.png"))
+	i9bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i9.png"))
+	i10bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i10.png"))
+	i11bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i11.png"))
+	i12bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i1.png"))
+	i13bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i2.png"))
+	i14bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i3.png"))
+	i15bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i4.png"))
+
+	i1.Background = i1bg
+	i2.Background = i5bg
+	i3.Background = i2bg
+	i4.Background = i6bg
+	i5.Background = i3bg
+	i6.Background = i7bg
+	i7.Background = i4bg
+	i8.Background = i8bg
+	i9.Background = i9bg
+	i10.Background = i10bg
+	i11.Background = i11bg
+	i12.Background = i12bg
+	i13.Background = i13bg
+	i14.Background = i14bg
+	i15.Background = i15bg
+	
+	i1.Visible = False
+	i2.Visible = False
+	i3.Visible = False
+	i4.Visible = False
+	i5.Visible = False
+	i6.Visible = False
+	i7.Visible = False
+	i8.Visible = False
+	i9.Visible = False
+	i10.Visible = False
+	i11.Visible = False
+	i12.Visible = False
+	i13.Visible = False
+	i14.Visible = False
+	i15.Visible = False
+	
+	it1.Initialize("it1",1000)
+	it2.Initialize("it2",2000)
+	it3.Initialize("it3",1000)
+	it4.Initialize("it4",4000)
+	it5.Initialize("it5",3000)
+	it6.Initialize("it6",2500)
+	it7.Initialize("it7",3500)
+	it8.Initialize("it8",4500)
+	it9.Initialize("it9",5000)
+	it10.Initialize("it10",5500)
+	it11.Initialize("it11",1500)
+	it12.Initialize("it12",6000)
+	it13.Initialize("it13",7000)
+	it14.Initialize("it14",8000)
+	it15.Initialize("it15",9000)
+	
+	it1.Enabled = True
+	it2.Enabled = True
+	it3.Enabled = True
+	it4.Enabled = True
+	it5.Enabled = True
+	it6.Enabled = True
+	it7.Enabled = True
+	it8.Enabled = True
+	it9.Enabled = True
+	it10.Enabled = True
+	it11.Enabled = True
+	it12.Enabled = True
+	it13.Enabled = True
+	it14.Enabled = True
+	it15.Enabled = True
+End Sub
+
+Sub bGroup
+	b1bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i5.png"))
+	b2bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i6.png"))
+	b3bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i1.png"))
+	b4bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i8.png"))
+	b5bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i7.png"))
+	b6bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i3.png"))
+	b7bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i1.png"))
+	b8bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i8.png"))
+	b9bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i2.png"))
+	b10bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i6.png"))
+	b11bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i4.png"))
+	b12bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i1.png"))
+	b13bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i9.png"))
+	b14bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","i2.png"))
+	b15bg.Initialize(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets","love.png"))
+	b1.Background = b1bg
+	b2.Background = b2bg
+	b3.Background = b3bg
+	b4.Background = b4bg
+	b5.Background = b5bg
+	b6.Background = b6bg
+	b7.Background = b7bg
+	b8.Background = b8bg
+	b9.Background = b9bg
+	b10.Background = b10bg
+	b11.Background = b11bg
+	b12.Background = b12bg
+	b13.Background = b13bg
+	b14.Background = b14bg
+	b15.Background = b15bg
+	
+	b1.Visible = False
+	b2.Visible = False
+	b3.Visible = False
+	b4.Visible = False
+	b5.Visible = False
+	b6.Visible = False
+	b7.Visible = False
+	b8.Visible = False
+	b9.Visible = False
+	b10.Visible = False
+	b11.Visible = False
+	b12.Visible = False
+	b13.Visible = False
+	b14.Visible = False
+	b15.Visible = False
+	
+	b1t.Initialize("b1t",5500)
+	b2t.Initialize("b2t",6000)
+	b3t.Initialize("b3t",6500)
+	b4t.Initialize("b4t",7500)
+	b5t.Initialize("b5t",8500)
+	b6t.Initialize("b6t",9500)
+	b7t.Initialize("b7t",6000)
+	b8t.Initialize("b8t",5500)
+	b9t.Initialize("b9t",9500)
+	b10t.Initialize("b10t",8500)
+	b11t.Initialize("b11t",5500)
+	b12t.Initialize("b12t",6500)
+	b13t.Initialize("b13t",7500)
+	b14t.Initialize("b14t",7000)
+	b15t.Initialize("b7t",5000)
+	
+	b1t.Enabled = True
+	b2t.Enabled = True
+	b3t.Enabled = True
+	b4t.Enabled = True
+	b5t.Enabled = True
+	b6t.Enabled = True
+	b7t.Enabled = True
+	b8t.Enabled = True
+	b9t.Enabled = True
+	b10t.Enabled = True
+	b11t.Enabled = True
+	b12t.Enabled = True
+	b13t.Enabled = True
+	b14t.Enabled = True
+	b15t.Enabled = True
+End Sub
+
+Sub t_Tick
+	SlideImage
+End Sub
+
+Sub iv2_Click
+	SlideImage
+End Sub
+
+Sub iv2_LongClick
+	Dim id_int As Int
+	Dim id As id
+	Dim lis As List
+	lis.Initialize
+	lis.AddAll(Array As String("280X x 300Y","280X x 310Y","280X x 320Y","280X x 330Y","280X x 340Y","280X x 360Y","280X x 370Y","280X x 380Y","280X x 390Y","280X x 400Y","Change to Default Size","",	"300X x 300Y","300X x 310Y","300X x 320Y","300X x 330Y","300X x 340Y","300X x 360Y","300X x 370Y","300X x 380Y","300X x 390Y","300X x 400Y"))
+	id_int = id.InputList1(lis,"Choose Image Size!")
+		
+	If id_int = 0 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,300dip)
+	End If
+		
+	If id_int = 1 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,310dip)
+	End If
+		
+	If id_int = 2 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,320dip)
+	End If
+		
+	If id_int = 3 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,330dip)
+	End If
+		
+	If id_int = 4 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,340dip)
+	End If
+		
+	If id_int = 5 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,360dip)
+	End If
+		
+	If id_int = 6 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,370dip)
+	End If
+		
+	If id_int = 7 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,380dip)
+	End If
+		
+	If id_int = 8 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,390dip)
+	End If
+		
+	If id_int = 9 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,400dip)
+	End If
+		
+	If id_int = 10 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 140dip,(lb.Height+lb.Top),280dip,300dip)
+	End If
+		
+	If id_int = 12 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,310dip)
+	End If
+		
+	If id_int = 13 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,320dip)
+	End If
+		
+	If id_int = 14 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,330dip)
+	End If
+		
+	If id_int = 15 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,340dip)
+	End If
+		
+	If id_int = 16 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,350dip)
+	End If
+		
+	If id_int = 17 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,360dip)
+	End If
+		
+	If id_int = 18 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,370dip)
+	End If
+		
+	If id_int = 19 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,380dip)
+	End If
+		
+	If id_int = 20 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,390dip)
+	End If
+		
+	If id_int = 21 Then
+		iv2.RemoveView
+		Activity.AddView(iv2,50%x - 150dip,(lb.Height+lb.Top),300dip,400dip)
+		Log("this 21")
+	End If
+End Sub
+
+Sub Activity_Resume
+	If b1t.Enabled = False Then
+		b1t.Enabled = True
+	End If
+	
+	If b2t.Enabled = False Then
+		b2t.Enabled = True
+	End If
+	
+	
+	If b3t.Enabled = False Then
+		b3t.Enabled = True
+	End If
+	
+	If b4t.Enabled = False Then
+		b4t.Enabled = True
+	End If
+	
+	If b5t.Enabled = False Then
+		b5t.Enabled = True
+	End If
+	
+	If b6t.Enabled = False Then
+		b6t.Enabled = True
+	End If
+	
+	If b7t.Enabled = False Then
+		b7t.Enabled = True
+	End If
+	
+	If b8t.Enabled = False Then
+		b8t.Enabled = True
+	End If
+	
+	If b9t.Enabled = False Then
+		b9t.Enabled = True
+	End If
+	
+	If b10t.Enabled = False Then
+		b10t.Enabled = True
+	End If
+	
+	If b11t.Enabled = False Then
+		b11t.Enabled = True
+	End If
+	
+	If b12t.Enabled = False Then
+		b12t.Enabled = True
+	End If
+	
+	If b13t.Enabled = False Then
+		b13t.Enabled = True
+	End If
+	
+	If b14t.Enabled = False Then
+		b14t.Enabled = True
+	End If
+	
+	If b15t.Enabled = False Then
+		b15t.Enabled = True
+	End If
+	
+	
+	If it1.Enabled = False Then
+		it1.Enabled = True
+	End If
+	
+	If it2.Enabled = False Then
+		it2.Enabled = True
+	End If
+	
+	If it3.Enabled = False Then
+		it3.Enabled = True
+	End If
+	
+	If it4.Enabled = False Then
+		it4.Enabled = True
+	End If
+	
+	If it5.Enabled = False Then
+		it5.Enabled = True
+	End If
+	
+	If it6.Enabled = False Then
+		it6.Enabled = True
+	End If
+	
+	If it7.Enabled = False Then
+		it7.Enabled = True
+	End If
+	
+	If it8.Enabled = False Then
+		it8.Enabled = True
+	End If
+	
+	If it9.Enabled = False Then
+		it9.Enabled = True
+	End If
+	
+	If it10.Enabled = False Then
+		it10.Enabled = True
+	End If
+	
+	If it11.Enabled = False Then
+		it11.Enabled = True
+	End If
+	
+	If it12.Enabled = False Then
+		it12.Enabled = True
+	End If
+	
+	If it13.Enabled = False Then
+		it13.Enabled = True
+	End If
+	
+	If it14.Enabled = False Then
+		it14.Enabled = True
+	End If
+	
+	If it15.Enabled = False Then
+		it15.Enabled = True
+	End If
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+	If b1t.Enabled = False Then
+		b1t.Enabled = True
+	End If
+	
+	If b2t.Enabled = False Then
+		b2t.Enabled = True
+	End If
+	
+	
+	If b3t.Enabled = False Then
+		b3t.Enabled = True
+	End If
+	
+	If b4t.Enabled = False Then
+		b4t.Enabled = True
+	End If
+	
+	If b5t.Enabled = False Then
+		b5t.Enabled = True
+	End If
+	
+	If b6t.Enabled = False Then
+		b6t.Enabled = True
+	End If
+	
+	If b7t.Enabled = False Then
+		b7t.Enabled = True
+	End If
+	
+	If b8t.Enabled = False Then
+		b8t.Enabled = True
+	End If
+	
+	If b9t.Enabled = False Then
+		b9t.Enabled = True
+	End If
+	
+	If b10t.Enabled = False Then
+		b10t.Enabled = True
+	End If
+	
+	If b11t.Enabled = False Then
+		b11t.Enabled = True
+	End If
+	
+	If b12t.Enabled = False Then
+		b12t.Enabled = True
+	End If
+	
+	If b13t.Enabled = False Then
+		b13t.Enabled = True
+	End If
+	
+	If b14t.Enabled = False Then
+		b14t.Enabled = True
+	End If
+	
+	If b15t.Enabled = False Then
+		b15t.Enabled = True
+	End If
+	
+	
+	If it1.Enabled = False Then
+		it1.Enabled = True
+	End If
+	
+	If it2.Enabled = False Then
+		it2.Enabled = True
+	End If
+	
+	If it3.Enabled = False Then
+		it3.Enabled = True
+	End If
+	
+	If it4.Enabled = False Then
+		it4.Enabled = True
+	End If
+	
+	If it5.Enabled = False Then
+		it5.Enabled = True
+	End If
+	
+	If it6.Enabled = False Then
+		it6.Enabled = True
+	End If
+	
+	If it7.Enabled = False Then
+		it7.Enabled = True
+	End If
+	
+	If it8.Enabled = False Then
+		it8.Enabled = True
+	End If
+	
+	If it9.Enabled = False Then
+		it9.Enabled = True
+	End If
+	
+	If it10.Enabled = False Then
+		it10.Enabled = True
+	End If
+	
+	If it11.Enabled = False Then
+		it11.Enabled = True
+	End If
+	
+	If it12.Enabled = False Then
+		it12.Enabled = True
+	End If
+	
+	If it13.Enabled = False Then
+		it13.Enabled = True
+	End If
+	
+	If it14.Enabled = False Then
+		it14.Enabled = True
+	End If
+	
+	If it15.Enabled = False Then
+		it15.Enabled = True
+	End If
+End Sub
+
+Sub it1_Tick
+	'i1Ani
+	i1.Visible = True
+	i1ani.SlideFadeToBottom("i1ani",1200,10000)
+	i1ani.StartAnim(i1)
+	it1.Enabled = False
+End Sub
+
+Sub it2_Tick
+	'i2Ani
+	i2.Visible = True
+	i2ani.SlideFadeToBottom("i2ani",1200,10000)
+	i2ani.StartAnim(i2)
+	it2.Enabled = False
+End Sub
+
+Sub it3_Tick
+	'i3Ani
+	i3.Visible = True
+	i3ani.SlideFadeToBottom("i3ani",1200,10000)
+	i3ani.StartAnim(i3)
+	it3.Enabled = False
+End Sub
+
+Sub it4_Tick
+	'i4Ani
+	i4.Visible = True
+	i4ani.SlideFadeToBottom("i4ani",1200,10000)
+	i4ani.StartAnim(i4)
+	it4.Enabled = False
+End Sub
+
+Sub it5_Tick
+	'i5Ani
+	i5.Visible = True
+	i5ani.SlideFadeToBottom("i5ani",1200,10000)
+	i5ani.StartAnim(i5)
+	it5.Enabled = False
+End Sub
+
+Sub it6_Tick
+	'i6Ani
+	i6.Visible = True
+	i6ani.SlideFadeToBottom("i6ani",1200,10000)
+	i6ani.StartAnim(i6)
+	it6.Enabled = False
+End Sub
+
+Sub it7_Tick
+	'i7Ani
+	i7.Visible = True
+	i7ani.SlideFadeToBottom("i7ani",1200,10000)
+	i7ani.StartAnim(i7)
+	it7.Enabled = False
+End Sub
+
+Sub it8_Tick
+	'i8Ani
+	i8.Visible = True
+	i8ani.SlideFadeToBottom("i8ani",1200,10000)
+	i8ani.StartAnim(i8)
+	it8.Enabled = False
+End Sub
+
+Sub it9_Tick
+	'i9Ani
+	i9.Visible = True
+	i9ani.SlideFadeToBottom("i9ani",1200,10000)
+	i9ani.StartAnim(i9)
+	it9.Enabled = False
+End Sub
+
+Sub it10_Tick
+	'i10Ani
+	i10.Visible = True
+	i10ani.SlideFadeToBottom("i10ani",1200,10000)
+	i10ani.StartAnim(i10)
+	it10.Enabled = False
+End Sub
+
+Sub it11_Tick
+	'i11Ani
+	i11.Visible = True
+	i11ani.SlideFadeToBottom("i11ani",1200,10000)
+	i11ani.StartAnim(i11)
+	it11.Enabled = False
+End Sub
+
+Sub it12_Tick
+	'i12Ani
+	i12.Visible = True
+	i12ani.SlideFadeToBottom("i12ani",1200,10000)
+	i12ani.StartAnim(i12)
+	it12.Enabled = False
+End Sub
+
+Sub it13_Tick
+	'i13Ani
+	i13.Visible = True
+	i13ani.SlideFadeToBottom("i13ani",1200,10000)
+	i13ani.StartAnim(i13)
+	it13.Enabled = False
+End Sub
+
+Sub it14_Tick
+	'i14Ani
+	i14.Visible = True
+	i14ani.SlideFadeToBottom("i14ani",1200,10000)
+	i14ani.StartAnim(i14)
+	it14.Enabled = False
+End Sub
+
+Sub it15_Tick
+	'i15Ani
+	i15.Visible = True
+	i15ani.SlideFadeToBottom("i15ani",1200,10000)
+	i15ani.StartAnim(i15)
+	it15.Enabled = False
+End Sub
+
+Sub b1t_Tick
+	'b1Ani
+	b1.Visible = True
+	b1ani.SlideFadeToBottom("b1ani",1200,10000)
+	b1ani.StartAnim(b1)
+	b1t.Enabled = False
+End Sub
+
+Sub b2t_Tick
+	'b2Ani
+	b2.Visible = True
+	b2ani.SlideFadeToBottom("b2ani",1200,10000)
+	b2ani.StartAnim(b2)
+	b2t.Enabled = False
+End Sub
+
+Sub b3t_Tick
+	'b3Ani
+	b3.Visible = True
+	b3ani.SlideFadeToBottom("b3ani",1200,10000)
+	b3ani.StartAnim(b3)
+	b3t.Enabled = False
+End Sub
+
+Sub b4t_Tick
+	'b4Ani
+	b4.Visible = True
+	b4ani.SlideFadeToBottom("b4ani",1200,10000)
+	b4ani.StartAnim(b4)
+	b4t.Enabled = False
+End Sub
+
+Sub b5t_Tick
+	'b5Ani
+	b5.Visible = True
+	b5ani.SlideFadeToBottom("b5ani",1200,10000)
+	b5ani.StartAnim(b5)
+	b5t.Enabled = False
+End Sub
+
+Sub b6t_Tick
+	'b6Ani
+	b6.Visible = True
+	b6ani.SlideFadeToBottom("b6ani",1200,10000)
+	b6ani.StartAnim(b6)
+	b6t.Enabled = False
+End Sub
+
+Sub b7t_Tick
+	b7.Visible = True
+	b7ani.SlideFadeToBottom("b7ani",1200,10000)
+	b7ani.StartAnim(b7)
+	b7t.Enabled = False
+End Sub
+
+Sub b8t_Tick
+	b8.Visible = True
+	b8ani.SlideFadeToBottom("b8ani",1200,10000)
+	b8ani.StartAnim(b8)
+	b8t.Enabled = False
+End Sub
+
+Sub b9t_Tick
+	b9.Visible = True
+	b9ani.SlideFadeToBottom("b9ani",1200,10000)
+	b9ani.StartAnim(b9)
+	b9t.Enabled = False
+End Sub
+
+Sub b10t_Tick
+	b10.Visible = True
+	b10ani.SlideFadeToBottom("b10ani",1200,10000)
+	b10ani.StartAnim(b10)
+	b10t.Enabled = False
+End Sub
+
+Sub b11t_Tick
+	b11.Visible = True
+	b11ani.SlideFadeToBottom("b11ani",1200,10000)
+	b11ani.StartAnim(b11)
+	b11t.Enabled = False
+End Sub
+
+Sub b12t_Tick
+	b12.Visible = True
+	b12ani.SlideFadeToBottom("b12ani",1200,10000)
+	b12ani.StartAnim(b12)
+	b12t.Enabled = False
+End Sub
+
+Sub b13t_Tick
+	b13.Visible = True
+	b13ani.SlideFadeToBottom("b13ani",1200,10000)
+	b13ani.StartAnim(b13)
+	b13t.Enabled = False
+End Sub
+
+Sub b14t_Tick
+	b14.Visible = True
+	b14ani.SlideFadeToBottom("b14ani",1200,10000)
+	b14ani.StartAnim(b14)
+	b14t.Enabled = False
+End Sub
+
+Sub b15t_Tick
+	b15.Visible = True
+	b15ani.SlideFadeToBottom("b15ani",1200,10000)
+	b15ani.StartAnim(b15)
+	b15t.Enabled = False
+End Sub
+
+'AniMated ################################################################################
+Sub i1ani_animationend
+	i1ani.StartAnim(i1)
+End Sub
+
+Sub i2ani_animationend
+	i2ani.StartAnim(i2)
+End Sub
+
+Sub i3ani_animationend
+	i3ani.StartAnim(i3)
+End Sub
+
+Sub i4ani_animationend
+	i4ani.StartAnim(i4)
+End Sub
+
+Sub i5ani_animationend
+	i5ani.StartAnim(i5)
+End Sub
+
+Sub i6ani_animationend
+	i6ani.StartAnim(i6)
+End Sub
+
+Sub i7ani_animationend
+	i7ani.StartAnim(i7)
+End Sub
+
+Sub i8ani_animationend
+	i8ani.StartAnim(i8)
+End Sub
+
+Sub i9ani_animationend
+	i9ani.StartAnim(i9)
+End Sub
+
+Sub i10ani_animationend
+	i10ani.StartAnim(i10)
+End Sub
+
+Sub i11ani_animationend
+	i11ani.StartAnim(i11)
+End Sub
+
+Sub i12ani_animationend
+	i12ani.StartAnim(i12)
+End Sub
+
+Sub i13ani_animationend
+	i13ani.StartAnim(i13)
+End Sub
+
+Sub i14ani_animationend
+	i14ani.StartAnim(i14)
+End Sub
+
+Sub i15ani_animationend
+	i15ani.StartAnim(i15)
+End Sub
+
+Sub b1ani_animationend
+	b1ani.StartAnim(b1)
+End Sub
+
+Sub b2ani_animationend
+	b2ani.StartAnim(b2)
+End Sub
+
+Sub b3ani_animationend
+	b3ani.StartAnim(b3)
+End Sub
+
+Sub b4ani_animationend
+	b4ani.StartAnim(b4)
+End Sub
+
+Sub b5ani_animationend
+	b5ani.StartAnim(b5)
+End Sub
+
+Sub b6ani_animationend
+	b6ani.StartAnim(b6)
+End Sub
+
+Sub b7ani_animationend
+	b7ani.StartAnim(b7)
+End Sub
+
+Sub b8ani_animationend
+	b8ani.StartAnim(b8)
+End Sub
+
+Sub b9ani_animationend
+	b9ani.StartAnim(b9)
+End Sub
+
+Sub b10ani_animationend
+	b10ani.StartAnim(b10)
+End Sub
+
+Sub b11ani_animationend
+	b11ani.StartAnim(b11)
+End Sub
+
+Sub b12ani_animationend
+	b12ani.StartAnim(b12)
+End Sub
+
+Sub b13ani_animationend
+	b13ani.StartAnim(b13)
+End Sub
+
+Sub b14ani_animationend
+	b14ani.StartAnim(b14)
+End Sub
+
+Sub b15ani_animationend
+	b15ani.StartAnim(b15)
+End Sub
+
+Sub SlideImage
+	Img =  Array As String("h1.jpg","h2.jpg","h3.jpg","h4.jpg","h5.jpg","h6.jpg","h7.jpg","h8.jpg","h9.jpg","h10.jpg")
+	iv2.SetBackgroundImage(LoadBitmap(File.DirRootExternal & "/.vDayAppMaker/assets",Img(Counter)))
+	Counter = Counter + 1
+	If Counter > 9 Then Counter = 0
+	Log("This is 10 > " & Counter)
+End Sub
+
+Sub Activity_KeyPress (KeyCode As Int) As Boolean
+	Dim Answ As Int
+	If KeyCode = KeyCodes.KEYCODE_BACK Then
+		Answ = Msgbox2("Do you want to exit ? ","Attention!", "Yes", "", "No",Null)
+		If Answ = DialogResponse.POSITIVE Then
+			If mp.IsPlaying = True Then
+				mp.Stop
+				Return False
+			End If
+		End If
+	
+		If Answ = DialogResponse.NEGATIVE Then
+			Return True
+		End If
+	End If
+End Sub
